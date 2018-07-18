@@ -1,0 +1,19 @@
+<apex:page controller="EmbarcaderoTripController" sidebar="false">
+<apex:slds />
+<html>
+<head>
+
+</head>
+    <body>
+
+    <!-- reactjs -->
+    <div class="contentContainer">
+        <div id="tripViewer" class="slds-scope"/>
+    </div>
+    <!--Development to point to ngrok. Also update the ngrok's url to match your localhost's url-->
+    <script src="https://b206ea94.ngrok.io/bundle.js"/>
+
+  </body>
+</html>
+
+</apex:page>

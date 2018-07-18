@@ -1,0 +1,41 @@
+{
+  "name": "React-Salesforce-Starter",
+  "version": "1.0.0",
+  "description": "React Salesforce Starter",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "build": "node ./node_modules/webpack/bin/webpack.js",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "css-loader": "^0.28.4",
+    "eslint-config-rallycoding": "^3.2.0",
+    "style-loader": "^0.18.2",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "antd": "^2.12.1",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-stage-1": "^6.1.18",
+    "halogen": "^0.2.0",
+    "lightning-container": "^1.0.0",
+    "lodash": "^4.17.10",
+    "react": "^15.6.2",
+    "react-addons-css-transition-group": "^15.6.1",
+    "react-dom": "^15.6.2",
+    "react-icons": "^2.2.5",
+    "react-linechart": "^1.1.12",
+    "react-router": "^2.0.1",
+    "react-router-dom": "^4.1.1"
+  }
+}
