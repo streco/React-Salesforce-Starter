@@ -17,7 +17,8 @@ export default class TripViewer extends Component {
       columnHeaders: [],
       columns:[],
       tableRows: [],
-      formattedColumns: []
+      formattedColumns: [],
+      showPreview: false
     }
 
     this._selectTrip = this._selectTrip.bind(this);
@@ -72,6 +73,7 @@ export default class TripViewer extends Component {
       },
     })
     .then(response => {
+      console.log(response);
       that._renderHeaders(response.data.reportExtendedMetadata.detailColumnInfo);
       that._renderRows(response.data.factMap[Object.keys(response.data.factMap)[0]].rows);
       this.setState({
@@ -104,17 +106,42 @@ export default class TripViewer extends Component {
   }
 
   _selectTrip(data){
+    this.setState({ showPreview: true });
+    const that = this;
+    console.log(data);
+    console.log(this.state.formattedColumns);
 
+    const index = _.findIndex(this.state.formattedColumns, function(o) { return o.label == 'Bike ID'; });
+
+    Visualforce.remoting.Manager.invokeAction('EmbarcaderoTripController.getAggregatedBikeMetrics', data[index].value, function (result, event) {
+      if (event.status) {
+        console.log(event.result);
+        that.setState({ selectedBike: data[index].value, metrics: event.result })
+      } else if (event.type === 'exception') {
+        console.log(event);
+      }
+      else {
+        console.log(event);
+      }
+    });
+
+  }
+
+  _closePreview(){
+    this.setState({ showPreview: false });
   }
 
 
   render() {
     return (
       <div >
-        <PreviewPane bikeId={this.state.selectedBike} metrics={this.state.metrics} />
+        {this.state.showPreview &&
+          <PreviewPane bikeId={this.state.selectedBike} metrics={this.state.metrics} />
+        }
+        <div className="slds-text-body_regular">Showing {this.state.tableRows.length} Records</div>
         <table style={{ marginTop: 10 }} className="slds-table slds-table_bordered slds-table_cell-buffer">
           <thead>
-            <tr>
+            <tr onClick={() => this._closePreview()} >
               {this.state.columnHeaders}
             </tr>
           </thead>
